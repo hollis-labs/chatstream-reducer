@@ -1,0 +1,57 @@
+{
+  "name": "@hollis-labs/chatstream-reducer",
+  "version": "0.1.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "description": "A pure reducer from chat-stream events to a normalized assistant message: parts, tool calls, usage, steps, approvals, gaps and status. No I/O, no timers, no framework.",
+  "keywords": [
+    "chat",
+    "stream",
+    "reducer",
+    "llm",
+    "ai"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hollis-labs/chatstream-reducer.git"
+  },
+  "homepage": "https://github.com/hollis-labs/chatstream-reducer#readme",
+  "bugs": {
+    "url": "https://github.com/hollis-labs/chatstream-reducer/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.js",
+    "test:run": "npm run build && node --test test/*.test.js",
+    "gen": "cd tools/gen && go run . -root ../.. -output ../../src/generated/chatstream-types.generated.ts",
+    "gen:check": "node scripts/gen-check.mjs",
+    "gen:go-test": "cd tools/gen && go test -count=1 ./..."
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "~6.0.2"
+  }
+}
